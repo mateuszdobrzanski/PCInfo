@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Names in the option menu -->
+    <menu>
+        <generalInformations>Informacje</generalInformations>
+        <display id="Wyświetl...">
+            <pcInfo>Nazwę komputera</pcInfo>
+            <ipInfo>IP komputera</ipInfo>
+        </display>
+        <exit>Wyjście</exit>
+    </menu>
+    <!-- Message context  -->
+    <message>
+        <messageTitle>Twój tytuł</messageTitle>
+        <messageUser>Użytkownik</messageUser>
+        <messagePCName>Nazwa komputera</messagePCName>
+        <messageIPAddress>Adres IP komputera</messageIPAddress>
+    </message>
+</configuration>
