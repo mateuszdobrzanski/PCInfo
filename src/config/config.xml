@@ -6,6 +6,7 @@
         <display id="Wyświetl...">
             <pcInfo>Nazwę komputera</pcInfo>
             <ipInfo>IP komputera</ipInfo>
+			<moreInformations>Więcej</moreInformations>
         </display>
 		
 		<cmd id="Konsola...">
@@ -22,7 +23,7 @@
 	
     <!-- Message context  -->
     <message>
-        <messageTitle>Twój tytuł</messageTitle>
+        <messageTitle>PCInfo | Dział IT</messageTitle>
         <messageUser>Użytkownik</messageUser>
         <messagePCName>Nazwa komputera</messagePCName>
         <messageIPAddress>Adres IP komputera</messageIPAddress>

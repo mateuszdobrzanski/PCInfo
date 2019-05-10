@@ -17,7 +17,7 @@ import java.net.*;
 public class PCInfo {
 
     public static void main(String[] args) {
-        /* Use an appropriate Look and Feel */
+
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
@@ -34,11 +34,7 @@ public class PCInfo {
         UIManager.put("swing.boldMetal", Boolean.FALSE);
         //Schedule a job for the event-dispatching thread:
         //adding TrayIcon.
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 
     private static void createAndShowGUI() {
@@ -95,6 +91,7 @@ public class PCInfo {
         MenuItem pcNameInfo = new MenuItem(configHandler.getMenuPCInfo());
         MenuItem IPInfo = new MenuItem(configHandler.getMenuIPInfo());
         MenuItem exitItem = new MenuItem(configHandler.getMenuExit());
+        MenuItem moreInfoItem = new MenuItem(configHandler.getMenuMoreInformations());
 
         Menu cmdItem = new Menu(configHandler.getMenuCMDName());
         MenuItem policyUpdate = new MenuItem(configHandler.getMenuPolicyUpdate());
@@ -111,6 +108,8 @@ public class PCInfo {
         popup.add(displayMenu);
             displayMenu.add(pcNameInfo);
             displayMenu.add(IPInfo);
+            displayMenu.addSeparator();
+            displayMenu.add(moreInfoItem);
         popup.add(cmdItem);
             cmdItem.add(policyUpdate);
             cmdItem.add(stopShutdowm);
@@ -124,7 +123,9 @@ public class PCInfo {
 
         // Tray icon's options
         trayIcon.setPopupMenu(popup);
-        trayIcon.setToolTip("PCInfo");
+        trayIcon.setToolTip("PCInfo" + "\n"
+                        + configHandler.getMessageShowHostName()
+                        + ": " + netProperties.getHostName());
         trayIcon.setImageAutoSize(true);
 
         try {
@@ -134,38 +135,26 @@ public class PCInfo {
             return;
         }
 
-
-        // Double click on tray icon
+        // Show message dialog after double clicking on tray icon
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 netProperties.initNetworkSettings();
 
-                // To show bold text we can use HTML tags
-                String message = "<html>" + "<b>"+ configHandler.getMessageUser() + ": </b>" + netProperties.getUserName()
-                        + "<br/>" + "<b>"+ configHandler.getMessageShowHostName() + ": </b>" + netProperties.getHostName()
-                        + "<br/>" + "<b>"+ configHandler.getMessageShowIPAddress() + ": </b>"
-                        + netProperties.getIPAddress() + "</html>";
-
-                JOptionPane.showMessageDialog(null, message,
+                JOptionPane.showMessageDialog(null,
+                                                configHandler.displayMessage(netProperties),
                                                 configHandler.getMessageTitle(),
                                                 JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
-        //
         aboutItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 netProperties.initNetworkSettings();
 
-                // To show bold text we can use HTML tags
-                String message = "<html>" + "<b>"+ configHandler.getMessageUser() + ": </b>" + netProperties.getUserName()
-                        + "<br/>" + "<b>"+ configHandler.getMessageShowHostName() + ": </b>" + netProperties.getHostName()
-                        + "<br/>" + "<b>"+ configHandler.getMessageShowIPAddress() + ": </b>"
-                        + netProperties.getIPAddress() + "</html>";
-
-                JOptionPane.showMessageDialog(null, message,
+                JOptionPane.showMessageDialog(null,
+                                                configHandler.displayMessage(netProperties),
                                                 configHandler.getMessageTitle(),
                                                 JOptionPane.INFORMATION_MESSAGE);
             }
@@ -226,6 +215,12 @@ public class PCInfo {
         openCMD.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cmdHandler.runCmdCommand();
+            }
+        });
+
+        moreInfoItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdHandler.executeCmdCommand("control /name Microsoft.System");
             }
         });
 

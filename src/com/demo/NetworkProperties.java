@@ -1,3 +1,10 @@
+/**
+ *
+ * This class helps to handle network and pc settings
+ * it is use for display pc name and internet address
+ *
+ */
+
 package com.demo;
 
 import java.io.IOException;
@@ -15,15 +22,9 @@ public class NetworkProperties {
     public NetworkProperties() {
     }
 
-    public NetworkProperties(String IPAddress, String hostName, String userName) {
-        this.IPAddress = IPAddress;
-        this.hostName = hostName;
-        this.userName = userName;
-    }
-
     public void initNetworkSettings(){
 
-        // Clear previous data about network setting
+        // Clear previous data about network settings
         IPAddress = "";
         hostName = "";
         userName = "";
@@ -49,7 +50,6 @@ public class NetworkProperties {
             e1.printStackTrace();
         } catch (IOException e1) {
             e1.printStackTrace();
-            //System.out.println("Connection problem");
         }
     }
 
@@ -57,23 +57,12 @@ public class NetworkProperties {
         return IPAddress;
     }
 
-    public void setIPAddress(String IPAddress) {
-        this.IPAddress = IPAddress;
-    }
-
     public String getHostName() {
         return hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

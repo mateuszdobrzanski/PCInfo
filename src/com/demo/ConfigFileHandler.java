@@ -1,3 +1,10 @@
+/**
+ *
+ * This class is responsible for handle names in menu
+ * names are in config.xml file
+ *
+ */
+
 package com.demo;
 
 import org.w3c.dom.Document;
@@ -12,6 +19,7 @@ public class ConfigFileHandler {
     private String menuDisplay;
     private String menuPCInfo;
     private String menuIPInfo;
+    private String menuMoreInformations;
     private String menuExit;
 
     // cmd options in menu
@@ -32,20 +40,6 @@ public class ConfigFileHandler {
     public ConfigFileHandler() {
     }
 
-    public ConfigFileHandler(String menuGeneralInformations, String menuDisplay, String menuPCInfo,
-                             String menuIPInfo, String menuExit, String messageTitle, String messageUser,
-                             String messageShowHostName, String messageShowIPAddress) {
-        this.menuGeneralInformations = menuGeneralInformations;
-        this.menuDisplay = menuDisplay;
-        this.menuPCInfo = menuPCInfo;
-        this.menuIPInfo = menuIPInfo;
-        this.menuExit = menuExit;
-        this.messageTitle = messageTitle;
-        this.messageUser = messageUser;
-        this.messageShowHostName = messageShowHostName;
-        this.messageShowIPAddress = messageShowIPAddress;
-    }
-
     public void populateMenuOptions(Document configXMLFile){
 
         Element eElement;
@@ -62,6 +56,7 @@ public class ConfigFileHandler {
                 menuDisplay = eElement.getAttribute("id");
                 menuPCInfo = eElement.getElementsByTagName("pcInfo").item(0).getTextContent();
                 menuIPInfo = eElement.getElementsByTagName("ipInfo").item(0).getTextContent();
+                menuMoreInformations = eElement.getElementsByTagName("moreInformations").item(0).getTextContent();
             }
 
             menuGeneralInformations = configXMLFile.getElementsByTagName("generalInformations").item(0).getTextContent();
@@ -91,12 +86,10 @@ public class ConfigFileHandler {
     public void populateMessageContent(Document configXMLFile){
 
         Element eElement;
-        //System.out.println("Root element :" + configXMLFile.getDocumentElement().getNodeName());
         NodeList nList = configXMLFile.getElementsByTagName("message");
 
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
-            //System.out.println("\nCurrent Element :" + nNode.getNodeName());
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -109,12 +102,23 @@ public class ConfigFileHandler {
         }
     }
 
+    public String displayMessage(NetworkProperties netProperties){
+
+        String message = "<html>" + "<b>"+ messageUser + ": </b>" + netProperties.getUserName()
+                + "<br/>" + "<b>"+ messageShowHostName + ": </b>" + netProperties.getHostName()
+                + "<br/>" + "<b>"+ messageShowIPAddress + ": </b>"
+                + netProperties.getIPAddress() + "</html>";
+
+        return message;
+    }
+
     public void populateWithDefaultSettings(){
 
         menuGeneralInformations = "About";
         menuDisplay = "Show...";
         menuPCInfo = "Host name";
         menuIPInfo = "Ip Address";
+        menuMoreInformations = "More...";
         menuExit = "Exit";
 
         messageTitle = "PCInfo";
@@ -193,5 +197,9 @@ public class ConfigFileHandler {
 
     public String getMenuOpenCMD() {
         return menuOpenCMD;
+    }
+
+    public String getMenuMoreInformations() {
+        return menuMoreInformations;
     }
 }
