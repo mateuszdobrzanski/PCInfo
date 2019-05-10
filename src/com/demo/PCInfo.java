@@ -96,12 +96,29 @@ public class PCInfo {
         MenuItem IPInfo = new MenuItem(configHandler.getMenuIPInfo());
         MenuItem exitItem = new MenuItem(configHandler.getMenuExit());
 
+        Menu cmdItem = new Menu(configHandler.getMenuCMDName());
+        MenuItem policyUpdate = new MenuItem(configHandler.getMenuPolicyUpdate());
+        MenuItem stopShutdowm = new MenuItem(configHandler.getMenuStopShutdown());
+        MenuItem ipconfigAll = new MenuItem(configHandler.getMenuIPconfigAll());
+        MenuItem ipconfigFLushDNS = new MenuItem(configHandler.getMenuIPconfigFlushDNS());
+        MenuItem ipconfigRenew = new MenuItem(configHandler.getMenuIPconfigRenew());
+        MenuItem openCMD = new MenuItem(configHandler.getMenuOpenCMD());
+
+
         //Add components to popup menu
         popup.add(aboutItem);
         popup.addSeparator();
         popup.add(displayMenu);
-        displayMenu.add(pcNameInfo);
-        displayMenu.add(IPInfo);
+            displayMenu.add(pcNameInfo);
+            displayMenu.add(IPInfo);
+        popup.add(cmdItem);
+            cmdItem.add(policyUpdate);
+            cmdItem.add(stopShutdowm);
+            cmdItem.add(ipconfigAll);
+            cmdItem.add(ipconfigFLushDNS);
+            cmdItem.add(ipconfigRenew);
+            cmdItem.addSeparator();
+            cmdItem.add(openCMD);
         popup.addSeparator();
         popup.add(exitItem);
 
@@ -175,6 +192,42 @@ public class PCInfo {
                 }
             }
         };
+
+        policyUpdate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdHandler.runCmdCommand("gpupdate /force");
+            }
+        });
+
+        stopShutdowm.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdHandler.runCmdCommand("shutdown /a");
+            }
+        });
+
+        ipconfigAll.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdHandler.runCmdCommand("ipconfig /all");
+            }
+        });
+
+        ipconfigFLushDNS.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdHandler.runCmdCommand("ipconfig /flushdns");
+            }
+        });
+
+        ipconfigRenew.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdHandler.runCmdCommand("ipconfig /renew");
+            }
+        });
+
+        openCMD.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cmdHandler.runCmdCommand();
+            }
+        });
 
         pcNameInfo.addActionListener(listener);
         IPInfo.addActionListener(listener);

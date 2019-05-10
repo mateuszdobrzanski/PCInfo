@@ -7,8 +7,19 @@
             <pcInfo>Nazwę komputera</pcInfo>
             <ipInfo>IP komputera</ipInfo>
         </display>
+		
+		<cmd id="Konsola...">
+			<policyUpdate>Odśwież polityki</policyUpdate>
+			<stopShutdown>Wstrzymaj aktualizację</stopShutdown>
+			<ipconfigAll>Pokaż informacje sieciowe</ipconfigAll>
+			<ipconfigFlushdns>Wyczyść DNSy</ipconfigFlushdns>
+			<ipconfigRenew>Odśwież IP</ipconfigRenew>
+			<openCmd>Otwórz konsolę</openCmd>
+		</cmd>
+		
         <exit>Wyjście</exit>
     </menu>
+	
     <!-- Message context  -->
     <message>
         <messageTitle>Twój tytuł</messageTitle>
